@@ -3,7 +3,6 @@
 ###Task Overview
 
 
-
 1. Setting up AWS Infrastructure:
 2. Installing and Configuring Jenkins:
 3. Setting up Docker:
@@ -54,13 +53,19 @@ Reference URL
 
 ![alt text](images/ec2.png)
 
+- Clic k on `Connect` button and it take you tu page  with different options to connect to your instance.
+
+Choose whatever you like.
+
+---
+
 ###2. Installing and Configuring Jenkins:
 
   Referance URL
   >https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
 
-![alt text](terraversion.png)
-To install jenkins run below  command in terminal :
+
+- To install jenkins run below  command in terminal of your ec2 instance:
 ```bash
 sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
   https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
@@ -82,27 +87,26 @@ OpenJDK Runtime Environment (build 17.0.8+7-Debian-1deb12u1)
 OpenJDK 64-Bit Server VM (build 17.0.8+7-Debian-1deb12u1, mixed mode, sharing)
 ```
 
-Now start, stop  or restart your server as needed. 
+- Now start, stop  or restart your server as needed. 
 ```bash
 sudo systemctl status jenkins
 sudo systemctl stop jenkins
 sudo systemctl start jenkins
 ```
 
-After running above command it will show your jenkins admin password .Copy that password for further use.
+- After running above command it will show your jenkins admin password .Copy that password for further use.
 
 Open http://your_EC2_IP_address:8080 on the browser , You should see the Jenkins welcome page.
 
 
 ![alt text](images/jenkins1.png)
 
-After running above command it will show your jenkins admin password .Copy that password for further use.
+- After running above command it will show your jenkins admin password .Copy that password for further use.
 
 
-Jenkins will ask you to setup admin user. Choose as you want.
+- Jenkins will ask you to setup admin user. Choose as you want.
 
-After that Jenkins will ask you to choose between “Install suggested plugins” or Choose Plugins to be installed.  
-
+- After that Jenkins will ask you to choose between “Install suggested plugins” or Choose Plugins to be installed.  
 Or we can install pluggins later.
 
 ![alt text](images/jenkins.png)
@@ -116,28 +120,29 @@ Or we can install pluggins later.
   Pipeline related
 
 
-Now create Jenkins credentials  so that jenkins can access docker and github.
+- Now create Jenkins credentials  so that jenkins can access docker and github.
 
-Go to your ec2 terminal.
+- Go to your ec2 terminal.
 
-Generate ssk key using  ssh-keygen :
+- Generate ssk key using  ssh-keygen :
 
 `ssh-keygen`
-This will generate id_rsa and id_rsa.pub in /home/ec2-user/.ssh directory.
+- This will generate id_rsa and id_rsa.pub in /home/ec2-user/.ssh directory.
+  
 ![alt text](images/ssh-keygen.png)
 
-Add content of id_rsa.pub to Jenkins.
+- Add content of id_rsa.pub to Jenkins.
 
 Goto Manage Jenkins -> Manage Credentials -> System -> Global Scope
 
 ![alt text](images/sshpubjenkins.png)
 ![alt text](images/sshpubkeykenkins2.png)
 
-Now Go to your github account settings-> SSH and GPG keys -> New SSH Key -> Add title and paste the content of ssh public key created earlier on ec2 instance.
+- Now Go to your github account settings-> SSH and GPG keys -> New SSH Key -> Add title and paste the content of ssh public key created earlier on ec2 instance.
 
-This allows Github to authenticate with EC2 instance when Jenkins Job will run and pull code from Github repository. 
+- This allows Github to authenticate with EC2 instance when Jenkins Job will run and pull code from Github repository. 
 
-Create a new entry of kind "SSH Username with private key"
+- Create a new entry of kind "SSH Username with private key"
 Enter following details -
 
 
@@ -147,7 +152,7 @@ Enter following details -
 
 ###3. Creating Node.js Application:
 
-Install nodejs and npm  on EC2 instance:
+- Install nodejs and npm  on EC2 instance:
 
 ```bash 
 sudo apt install nodejs
@@ -155,14 +160,15 @@ sudo apt install npm
 ```
 ![alt text](images/npminstall.png)
 
-Creating a simple "Hello, World!" Node.js web application involves several steps:
+- Creating a simple "Hello, World!" Node.js web application involves below steps:
 1.	Initialize the project:
-•	Create a new directory for your project.
+
+•	 Create a new directory for your project.
 
 ![alt text](images/initilize.png)
 
-•	Open a terminal or command prompt and navigate to the directory you just created.
-•	Run npm init -y to initialize a new Node.js project with default settings.
+•	  Open a terminal or command prompt and navigate to the directory you just created.
+•	 Run npm init -y to initialize a new Node.js project with default settings.
 
 ![alt text](images/npminit.png)
 
@@ -218,7 +224,7 @@ node app.js
 
 ###4. Setting up Docker:
 
-Install docker on Ubuntu ec2 instance  using the following commands:
+- Install docker on Ubuntu ec2 instance  using the following commands:
 
 ```bash
 sudo apt install docker.io
@@ -227,7 +233,7 @@ sudo usermod -a -G docker $USER
 ```
 
 
-To create a Dockerfile for your "Hello, World!" Node.js web application, you'll follow these steps:
+- To create a Dockerfile for your "Hello, World!" Node.js web application, you'll follow these steps:
 1.	Create a Dockerfile: In your project directory, create a file named Dockerfile.
 
 ```bash
@@ -275,7 +281,7 @@ This Dockerfile specifies a multi-stage build process:
 •	It specifies the command to run the application (node app.js).
 
 
-With this Dockerfile, you can now build a Docker image for your Node.js application by running `docker build .` in the project directory. 
+- With this Dockerfile, you can now build a Docker image for your Node.js application by running `docker build .` in the project directory. 
 
 ```bash
 sudo docker build . -t node-app
@@ -284,7 +290,7 @@ sudo docker build . -t node-app
 ![alt text](images/dockerbuild.png)
 ![alt text](images/dockerbuild2.png)
 
-Docker imaage created can be viewed  using `docker images` command.
+- Docker imaage created can be viewed  using `docker images` command.
 
 ```bash
 docker images
@@ -292,11 +298,11 @@ docker images
 ![alt text](images/images.png)
 
 
-After the image is built, you can run a container based on the image using 
+- After the image is built, you can run a container based on the image using 
 ```bash
 docker run -d -p 8000:8000 <image_id>
 ```
- This will start your Node.js application inside a Docker container, and you'll be able to access it at http://your-aws-ec2-publicip:8000 or check with `curl`.
+- This will start your Node.js application inside a Docker container, and you'll be able to access it at http://your-aws-ec2-publicip:8000 or check with `curl`.
 
  ```bash
 docker run -d -p 8000:8000 node-app
@@ -317,8 +323,74 @@ curl http://65.0.80.79:8000
 ###5. Implementing CICD Pipeline:
 
 
-Run below command in ec2 terminal so that jenkins user can access docker.
+- Run below command in ec2 terminal so that jenkins user can access docker.
 
 `sudo usermod -aG docker jenkins`
 
+- Go to jenkins for creating Job.
+
 1. Create a freestyle job in jenkins as follow:
+
+![alt text](images/freestyle.PNG)
+
+- You can choose to discard  old builds or keep them around (up to your
+
+![alt text](images/job1.PNG)
+
+- Also you can specify  how many days you want to keep the build and Max number of builds to keep. 
+  
+![alt text](images/job2.PNG)
+
+- Add your github project URL. Here you have to add till your projects root folder:
+
+![alt text](images/job3.PNG)
+
+- In Source Code Management  tab select Git and enter your Github repository URL
+
+![alt text](images/job4.PNG)
+
+- You have to add credentials - add exixting one if you have already added or create new one to access ec2 instance.
+- Here I have added ssh public key.
+
+![alt text](images/job5.PNG)
+
+
+![alt text](images/job6.PNG)
+
+
+In build  steps add shell script and enter following commands :
+```bash
+cd /var/lib/jenkins/workspace/task2/Task2/hello_world
+docker build -t my-node-app .
+docker run -d -p 8000:8000 my-node-app
+```
+
+- `cd` command to direct to project folder.
+- command to perform docker build 
+- command to run the container
+
+
+Finally apply the configuration and save it. After that you have to Build the jenkins job.
+
+![alt text](images/job7.PNG)
+
+After build  is completed, You will get a green signal on and console will give `Finished : SUCCESS` output at last. 
+
+![alt text](images/console1.PNG)
+
+
+
+![alt text](images/console2.PNG)
+
+
+
+![alt text](images/console3.PNG)
+
+
+- In browser you can check the url of your app:
+
+![alt text](images/browser.png)
+
+
+
+---
