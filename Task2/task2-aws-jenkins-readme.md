@@ -82,30 +82,70 @@ OpenJDK Runtime Environment (build 17.0.8+7-Debian-1deb12u1)
 OpenJDK 64-Bit Server VM (build 17.0.8+7-Debian-1deb12u1, mixed mode, sharing)
 ```
 
+Now start, stop  or restart your server as needed. 
+```bash
+sudo systemctl status jenkins
+sudo systemctl stop jenkins
+sudo systemctl start jenkins
+```
 
 After running above command it will show your jenkins admin password .Copy that password for further use.
 
 Open http://your_EC2_IP_address:8080 on the browser , You should see the Jenkins welcome page.
 
-Now we need to setup docker plugin by following these steps :
+
+![alt text](images/jenkins1.png)
+
+After running above command it will show your jenkins admin password .Copy that password for further use.
+
+
+Jenkins will ask you to setup admin user. Choose as you want.
+
+After that Jenkins will ask you to choose between “Install suggested plugins” or Choose Plugins to be installed.  
+
+Or we can install pluggins later.
+
+![alt text](images/jenkins.png)
 
 - Go to Manage Jenkins -> Manage Plugins -> Available tab -> Docker Integr    ation ->Install without restart.
-- Go to Manage Jenkins -> Manage Plugins -> Available tab -> Search Docker -> Click on Get It button -> Restart Jenkins Server    
-  
+- Go to Manage Jenkins -> Manage Plugins -> Available tab -> Search Docker -> Click on Get It button -> Restart Jenkins Server.
+
+- Following pluggins will be required.
+  Docker related 
+  GitHub related
+  Pipeline related
 
 
+Now create Jenkins credentials  so that jenkins can access docker and github.
 
-- Clean up tutorial resources.
+Go to your ec2 terminal.
 
-![alt text](terraversion.png)
+Generate ssk key using  ssh-keygen :
+
+`ssh-keygen`
+This will generate id_rsa and id_rsa.pub in /home/ec2-user/.ssh directory.
+![alt text](images/ssh-keygen.png)
+
+Add content of id_rsa.pub to Jenkins.
+
+Goto Manage Jenkins -> Manage Credentials -> System -> Global Scope
+
+![alt text](images/sshpubjenkins.png)
+![alt text](images/sshpubkeykenkins2.png)
+
+Now Go to your github account settings-> SSH and GPG keys -> New SSH Key -> Add title and paste the content of ssh public key created earlier on ec2 instance.
+
+This allows Github to authenticate with EC2 instance when Jenkins Job will run and pull code from Github repository. 
+
+Create a new entry of kind "SSH Username with private key"
+Enter following details -
 
 
-###3. Setting up Docker:
-Install docker on Ubuntu ec2 instance  using the following commands:
+![alt text](images/ec2sshkeygithub.png)
 
+---
 
-
-###4. Creating Node.js Application:
+###3. Creating Node.js Application:
 
 Install nodejs and npm  on EC2 instance:
 
@@ -174,13 +214,18 @@ node app.js
 
 ![alt text](images/runjs.png)
 
-5.	Access the application:
-•	Open a web browser and navigate to http://your-ec2public:8000.
-•	You should see the message "Hello, World!" displayed in the browser.
+---
 
-![alt text](images/browser.png)
+###4. Setting up Docker:
 
-###5. Implementing CICD Pipeline:
+Install docker on Ubuntu ec2 instance  using the following commands:
+
+```bash
+sudo apt install docker.io
+#to add current user to docker group
+sudo usermod -a -G docker $USER
+```
+
 
 To create a Dockerfile for your "Hello, World!" Node.js web application, you'll follow these steps:
 1.	Create a Dockerfile: In your project directory, create a file named Dockerfile.
@@ -218,6 +263,7 @@ EXPOSE 8000
 # Command to run the application
 CMD ["node", "app.js"]
 ```
+![alt text](images/dockerfile.png)
 
 3.	Save the Dockerfile.
 This Dockerfile specifies a multi-stage build process:
@@ -225,10 +271,54 @@ This Dockerfile specifies a multi-stage build process:
 •	It sets the working directory inside the container to /app.
 •	It copies package.json and package-lock.json to the working directory and installs dependencies using npm install.
 •	It copies the rest of the application code to the working directory.
-•	It exposes port 0000 of the container to the outside world.
+•	It exposes port 8000 of the container to the outside world.
 •	It specifies the command to run the application (node app.js).
 
 
-With this Dockerfile, you can now build a Docker image for your Node.js application by running docker build . in the project directory. After the image is built, you can run a container based on the image using 
+With this Dockerfile, you can now build a Docker image for your Node.js application by running `docker build .` in the project directory. 
+
+```bash
+sudo docker build . -t node-app
+```
+
+![alt text](images/dockerbuild.png)
+![alt text](images/dockerbuild2.png)
+
+Docker imaage created can be viewed  using `docker images` command.
+
+```bash
+docker images
+```
+![alt text](images/images.png)
+
+
+After the image is built, you can run a container based on the image using 
+```bash
 docker run -d -p 8000:8000 <image_id>
- This will start your Node.js application inside a Docker container, and you'll be able to access it at http://your-aws-ec2-publicip:8000.
+```
+ This will start your Node.js application inside a Docker container, and you'll be able to access it at http://your-aws-ec2-publicip:8000 or check with `curl`.
+
+ ```bash
+docker run -d -p 8000:8000 node-app
+docker ps
+curl http://65.0.80.79:8000
+ ```
+![alt text](images/dockerrun1.png)
+
+
+5.	Access the application:
+•	Open a web browser and navigate to http://your-ec2public:8000.
+•	You should see the message "Hello, World!" displayed in the browser.
+
+![alt text](images/browser.png)
+
+---
+
+###5. Implementing CICD Pipeline:
+
+
+Run below command in ec2 terminal so that jenkins user can access docker.
+
+`sudo usermod -aG docker jenkins`
+
+1. Create a freestyle job in jenkins as follow:
