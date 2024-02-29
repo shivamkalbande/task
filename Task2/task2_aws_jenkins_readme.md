@@ -120,7 +120,7 @@ Or we can install pluggins later.
   Pipeline related
 
 
-- Now create Jenkins credentials  so that jenkins can access docker and github.
+- Now create credentials in Jenkins which allows jenkins running on EC2 to access github.
 
 - Go to your ec2 terminal.
 
@@ -390,7 +390,5 @@ After build  is completed, You will get a green signal on and console will give 
 - In browser you can check the url of your app:
 
 ![alt text](images/browser.png)
-
-
 
 ---
