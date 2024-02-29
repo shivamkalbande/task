@@ -5,30 +5,61 @@
 - Create a Dockerfile for a simple web application (e.g. a Node.js or 
 Python app)
 - Build the image using the Dockerfile and run the container
-- Verify that the application is working as expected by accessing it in a 
-web browser
+- Verify that the application is working as expected by accessing it in a web browser
 - Push the image to a public or private repository (e.g. Docker Hub)
-
+- Pull image and run it again
 ---
 
 Refrence URL
-`https://tecadmin.net/how-to-create-and-run-a-flask-application-using-docker/`
+
+```
+https://tecadmin.net/how-to-create-and-run-a-flask-application-using-docker/
+```
+
+- Setup Python environment  with Flask framework
+
+1. Install python and pip if not already installed on your system (Here Ubuntu 22.04). 
+```bash
+sudo apt install python3
+sudo apt install python3-pip
+sudo apt install python3-venv
+```
+![alt text](images/pythoninstall.PNG)
+![alt text](images/python3-pip.PNG)
+![alt text](images/python3-venv.PNG)
 
 
+Create project directory and go into it.
+
+```bash
 sudo mkdir flask-app 
- cd flask-app/
+cd flask-app/
+```
+2. Now create virtual environment inside this folder and  activate it.
 
- sudo apt install python3.10-venv
- python3 -m venv venv1
- sudo python3 -m venv venv1
- source venv1/bin/activate 
-apt install python3-pip
+```bash
+sudo python3 -m venv venv1
+source venv1/bin/activate 
+```
+
+![alt text](images/venv.PNG)
+
+3. Install flask  using pip and freeze the requirements for project.
+
+```bash
 pip install Flask 
 pip freeze > requirements.txt
-cd flask-app/ 
-vim app.py
+```
+
+![alt text](images/piplist.PNG)
+![alt text](images/freezreq.PNG)
 
 
+4. Create an app.py file which will be our main application file:
+ 
+`vim app.py`
+
+```python
 from flask import Flask
 
 app = Flask(__name__)
@@ -43,8 +74,25 @@ def welcome():
 
 if __name__ == '__main__':
     app.run(debug=True)
+```
 
-sudo vi Dockerfile
+Contents of flask app directory will look like this.
+
+`cat app.py`
+![alt text](images/app.PNG)
+
+`flask run --host 0.0.0.0 --port 5000`
+![alt text](images/flaskrun.PNG)
+
+Go to web browser and check for http://yourvmip:5000/. You should see "Hello" on the page.
+![alt text](images/webapp.PNG)
+
+---
+Create Dockerfile in the same folder as flask app directory.
+
+`sudo vi Dockerfile`
+
+```Dockerfile
 FROM python:3-alpine
 
 # Create app directory
@@ -60,13 +108,79 @@ COPY . .
 
 EXPOSE 5000
 CMD [ "flask", "run","--host","0.0.0.0","--port","5000"]
-
-cd flask-app/
-
- flask run --host 0.0.0.0 --port 5000
-
- docker build -t flask-app .
- sudo docker images
+```
+`cat Dockerfile`
+![alt text](images/dockerfile.PNG)
 
 
+
+![alt text](images/dockerps.PNG)
+
+
+
+![alt text](images/webapp.PNG)
+
+---
+
+
+
+ Now , we will build and run our docker image using the following commands :
+
+ `docker build -t flask-app .`
+
+ ![alt text](images/doackerbild.PNG)
+
+To show docker images just created run below command:
+ `sudo docker images`
+
+![alt text](images/dockerimage.PNG)
+
+
+To push a local Docker image to a Docker Hub repository, you need to follow these general steps:
+
+1. Tag the local Docker image: Before pushing the image, you need to tag it with the repository name. The format for tagging is docker tag local_image:tag repository_name:tag.
+   
+`docker tag flask-app:latest shivamk23/task1_flask_app:first`
+
+![alt text](images/tag.PNG)
+
+2. Login to Docker Hub: Use the docker login command to authenticate with your Docker Hub account.
+Instead your password you can use  an access token which is more secure. You can generate it in Docker Hub under settings.
+docker login
+
+Username: shivamk23
+Password:
+![alt text](images/dockerimage.PNG)
+
+![alt text](images/dockerimage.PNG)
+
+3. Push the image to Docker Hub: Once logged in, use the docker push command to upload the tagged image to your Docker Hub repository.
+
+`docker push shivamk23/task1_flask_app:first`
+
+![alt text](images/dockerimage.PNG)
+
+4. Delete all the  previous images of the app by running this command in terminal:
+
+`docker rmi -f <image-id>`
+
+![alt text](images/dockerimage.PNG)
+
+Now you have two options to run container either pull the image first and then run or use the run command without pulling it.
+
+`docker pull shivamk23/task1_flask_app:first`
+
+![alt text](images/dockerpull.PNG)
+
+```
+docker run -d -p 5000:5000 --name flask_containerSSK shivamk23/task1_flask_repo:latest
+```
+
+![alt text](images/dockerrun.png)
+
+Check in browser with  `http://<your_ip>:5000/`
+
+![alt text](images/webapp.png)
+
+---
 
