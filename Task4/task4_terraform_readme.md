@@ -492,7 +492,7 @@ Section in terraform to install and run sample application using terraform
 Now go to your AWS console and search for VPC service.
 Check for the services/resources are created as per script or not.
 
-![alt text](images/awsvpc2.png)
+![alt text](images/awsvpc2.PNG)
 
 
 ![alt text](images/vpc.PNG)
