@@ -176,11 +176,11 @@ Now you have two options to run container either pull the image first and then r
 docker run -d -p 5000:5000 --name flask_containerSSK shivamk23/task1_flask_repo:latest
 ```
 
-![alt text](images/dockerrun.png)
+![alt text](images/dockerrun.PNG)
 
 Check in browser with  `http://<your_ip>:5000/`
 
-![alt text](images/webapp.png)
+![alt text](images/webapp.PNG)
 
 ---
 
