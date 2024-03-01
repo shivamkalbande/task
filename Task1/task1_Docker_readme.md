@@ -35,6 +35,7 @@ Create project directory and go into it.
 sudo mkdir flask-app 
 cd flask-app/
 ```
+
 2. Now create virtual environment inside this folder and  activate it.
 
 ```bash
@@ -56,8 +57,10 @@ pip freeze > requirements.txt
 
 
 4. Create an app.py file which will be our main application file:
- 
-`vim app.py`
+
+```bash 
+vim app.py
+```
 
 ```python
 from flask import Flask
@@ -78,10 +81,15 @@ if __name__ == '__main__':
 
 Contents of flask app directory will look like this.
 
-`cat app.py`
+```bash
+cat app.py
+```
+
 ![alt text](images/app.PNG)
 
-`flask run --host 0.0.0.0 --port 5000`
+```bash
+flask run --host 0.0.0.0 --port 5000
+```
 ![alt text](images/flaskrun.PNG)
 
 Go to web browser and check for http://yourvmip:5000/. You should see "Hello" on the page.
@@ -90,7 +98,9 @@ Go to web browser and check for http://yourvmip:5000/. You should see "Hello" on
 ---
 Create Dockerfile in the same folder as flask app directory.
 
-`sudo vi Dockerfile`
+```bash
+sudo vi Dockerfile
+```
 
 ```Dockerfile
 FROM python:3-alpine
@@ -109,7 +119,11 @@ COPY . .
 EXPOSE 5000
 CMD [ "flask", "run","--host","0.0.0.0","--port","5000"]
 ```
-`cat Dockerfile`
+
+```bash
+cat Dockerfile
+```
+
 ![alt text](images/dockerfile.PNG)
 
 
@@ -126,12 +140,17 @@ CMD [ "flask", "run","--host","0.0.0.0","--port","5000"]
 
  Now , we will build and run our docker image using the following commands :
 
- `docker build -t flask-app .`
+```bash
+ docker build -t flask-app .
+```
 
  ![alt text](images/doackerbild.PNG)
 
 To show docker images just created run below command:
- `sudo docker images`
+
+ ```bash
+ sudo docker images
+```
 
 ![alt text](images/dockerimage.PNG)
 
@@ -140,7 +159,9 @@ To push a local Docker image to a Docker Hub repository, you need to follow thes
 
 1. Tag the local Docker image: Before pushing the image, you need to tag it with the repository name. The format for tagging is docker tag local_image:tag repository_name:tag.
    
-`docker tag flask-app:latest shivamk23/task1_flask_app:first`
+```bash
+docker tag flask-app:latest shivamk23/task1_flask_app:first
+```
 
 ![alt text](images/tag.PNG)
 
@@ -156,23 +177,29 @@ Password:
 
 3. Push the image to Docker Hub: Once logged in, use the docker push command to upload the tagged image to your Docker Hub repository.
 
-`docker push shivamk23/task1_flask_app:first`
+```bash
+docker push shivamk23/task1_flask_app:first
+```
 
 ![alt text](images/dockerimage.PNG)
 
 4. Delete all the  previous images of the app by running this command in terminal:
 
-`docker rmi -f <image-id>`
+```bash
+docker rmi -f <image-id>
+```
 
 ![alt text](images/dockerimage.PNG)
 
 Now you have two options to run container either pull the image first and then run or use the run command without pulling it.
 
-`docker pull shivamk23/task1_flask_app:first`
+```bash
+docker pull shivamk23/task1_flask_app:first
+```
 
 ![alt text](images/dockerpull.PNG)
 
-```
+```bash
 docker run -d -p 5000:5000 --name flask_containerSSK shivamk23/task1_flask_repo:latest
 ```
 
