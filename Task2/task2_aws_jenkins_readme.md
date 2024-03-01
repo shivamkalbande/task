@@ -126,7 +126,10 @@ Or we can install pluggins later.
 
 - Generate ssk key using  ssh-keygen :
 
-`ssh-keygen`
+```bash
+ssh-keygen
+```
+
 - This will generate id_rsa and id_rsa.pub in /home/ec2-user/.ssh directory.
   
 ![alt text](images/ssh-keygen.png)
@@ -325,7 +328,9 @@ curl http://65.0.80.79:8000
 
 - Run below command in ec2 terminal so that jenkins user can access docker.
 
-`sudo usermod -aG docker jenkins`
+```bash
+sudo usermod -aG docker jenkins
+```
 
 - Go to jenkins for creating Job.
 
