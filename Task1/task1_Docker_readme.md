@@ -171,6 +171,8 @@ To push a local Docker image to a Docker Hub repository, you need to follow thes
 1. Tag the local Docker image: Before pushing the image, you need to tag it with the repository name. The format for tagging is docker tag local_image:tag repository_name:tag.
 
 Create a docker hub repository in your docker hub account with same name which you will use while tagging and pushing local image.  `task1_fkask_app`
+
+![alt text](images/dockerrepo.PNG)
    
 ```bash
 docker tag flask-app:latest shivamk23/task1_flask_app:first
@@ -185,7 +187,7 @@ Instead your password you can use  an access token which is more secure. You can
 
 ![alt text](images/accesstokn.PNG)
 
-![alt text](images/dockerrepo.PNG)
+
 
 ```bash
 docker login
