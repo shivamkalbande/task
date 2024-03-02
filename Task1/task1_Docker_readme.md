@@ -130,11 +130,7 @@ cat Dockerfile
 
 
 
-![alt text](images/dockerps.PNG)
 
-
-
-![alt text](images/webapp.PNG)
 
 ---
 
@@ -155,6 +151,19 @@ To show docker images just created run below command:
 ```
 
 ![alt text](images/dockerimage.PNG)
+
+To run the container from local image just created from above dockerfile run this command.
+
+```bash
+docker run -d -p 5000:5000 --name flask_containerSSK task1_flas
+```
+
+![alt text](images/dockerps.PNG)
+
+
+
+![alt text](images/webapp.PNG)
+
 
 
 To push a local Docker image to a Docker Hub repository, you need to follow these general steps:
