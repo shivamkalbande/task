@@ -184,7 +184,7 @@ Username: shivamk23
 
 Password:
 
-![alt text](images/accesstoken.PNG)
+![alt text](images/accesstokn.PNG)
 
 ![alt text](images/dockerrepo.PNG)
 
