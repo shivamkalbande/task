@@ -155,7 +155,7 @@ To show docker images just created run below command:
 To run the container from local image just created from above dockerfile run this command.
 
 ```bash
-docker run -d -p 5000:5000 --name flask_containerSSK task1_flas
+docker run -d -p 5000:5000 --name my_flask_app flask-app
 ```
 
 ![alt text](images/dockerps.PNG)
