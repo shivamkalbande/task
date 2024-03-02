@@ -193,7 +193,7 @@ docker rmi -f <image-id>
 
 ![alt text](images/dockerimage.PNG)
 
-Now you have two options to run container either pull the image first and then run or use the run command without pulling it.
+5. Now you have two options to run container either pull the image first and then run or use the run command without pulling it.
 
 ```bash
 docker pull shivamk23/task1_flask_app:first
