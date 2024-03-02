@@ -181,10 +181,12 @@ Instead your password you can use  an access token which is more secure. You can
 docker login
 
 Username: shivamk23
-Password:
-![alt text](images/dockerimage.PNG)
 
-![alt text](images/dockerimage.PNG)
+Password:
+
+![alt text](images/accesstoken.PNG)
+
+![alt text](images/dockerrepo.PNG)
 
 3. Push the image to Docker Hub: Once logged in, use the docker push command to upload the tagged image to your Docker Hub repository.
 
@@ -192,7 +194,7 @@ Password:
 docker push shivamk23/task1_flask_app:first
 ```
 
-![alt text](images/dockerimage.PNG)
+![alt text](images/dockerpush.PNG)
 
 4. Delete all the  previous images of the app by running this command in terminal:
 
