@@ -87,6 +87,8 @@ OpenJDK Runtime Environment (build 17.0.8+7-Debian-1deb12u1)
 OpenJDK 64-Bit Server VM (build 17.0.8+7-Debian-1deb12u1, mixed mode, sharing)
 ```
 
+![alt text](images/installopenjdk.PNG)
+
 - Now start, stop  or restart your server as needed. 
 ```bash
 sudo systemctl status jenkins
@@ -248,7 +250,7 @@ sudo vi Dockerfile
  
  ![alt text](images/appjs.png)
 
-DockerfileCopy code
+Dockerfile
 
 ```hcl
 # Use the official Node.js image with the LTS version
