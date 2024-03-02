@@ -87,6 +87,8 @@ cat app.py
 
 ![alt text](images/app.PNG)
 
+Run the flask application to test before creating docker image.
+
 ```bash
 flask run --host 0.0.0.0 --port 5000
 ```
@@ -96,7 +98,7 @@ Go to web browser and check for http://yourvmip:5000/. You should see "Hello" on
 ![alt text](images/webapp.PNG)
 
 ---
-Create Dockerfile in the same folder as flask app directory.
+Create Dockerfile in the same directory i.e., flask app directory.
 
 ```bash
 sudo vi Dockerfile
