@@ -32,8 +32,8 @@ sudo apt install python3-venv
 Create project directory and go into it.
 
 ```bash
-sudo mkdir flask-app 
-cd flask-app/
+sudo mkdir flask_app 
+cd flask_app/
 ```
 
 2. Now create virtual environment inside this folder and  activate it.
