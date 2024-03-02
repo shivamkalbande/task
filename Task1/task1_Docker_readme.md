@@ -177,16 +177,23 @@ docker tag flask-app:latest shivamk23/task1_flask_app:first
 ![alt text](images/tag.PNG)
 
 2. Login to Docker Hub: Use the docker login command to authenticate with your Docker Hub account.
+   
 Instead your password you can use  an access token which is more secure. You can generate it in Docker Hub under settings.
+
+
+![alt text](images/accesstokn.PNG)
+
+![alt text](images/dockerrepo.PNG)
+
+```bash
 docker login
 
 Username: shivamk23
 
 Password:
+```
+![alt text](images/dockerlogin.PNG)
 
-![alt text](images/accesstokn.PNG)
-
-![alt text](images/dockerrepo.PNG)
 
 3. Push the image to Docker Hub: Once logged in, use the docker push command to upload the tagged image to your Docker Hub repository.
 
