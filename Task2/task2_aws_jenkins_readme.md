@@ -96,7 +96,6 @@ sudo systemctl stop jenkins
 sudo systemctl start jenkins
 ```
 
-- After running above command it will show your jenkins admin password .Copy that password for further use.
 
 Open http://your_EC2_IP_address:8080 on the browser , You should see the Jenkins welcome page.
 
