@@ -13,7 +13,8 @@
 - 20 GB free disk space
 - Sudo used with admin access
 - Reliable Internet Connectivity
-- Docker
+- Docker Installed
+  
 Refrence URL
 
 
