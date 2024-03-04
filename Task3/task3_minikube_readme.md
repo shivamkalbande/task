@@ -94,9 +94,29 @@ kubectl version --client
 ```
 ![alt text](images/kubectl.PNG)
 
-- You can create a sample deployment for Nginx and expose it on port 8099 using kubectl commands directly. Below are the steps:
 
-#3. **Create Deployment:**
+
+#3. Install Docker  
+
+To install the docker follow steps in task2 under heading 4. Setting up Docker:
+
+Add docker user to current user group.
+
+```bash
+sudo usermod -a -G docker $USER
+```
+Now that Minikube, kubectl and docker is installed, start a Kubernetes cluster using the following command:
+
+minikube start --driver=docker
+
+![alt text](images/start2.PNG)
+
+![alt text](images/start3.PNG)
+
+![alt text](images/start4.PNG)
+
+#4. **Create Deployment:**
+- You can create a sample deployment for Nginx and expose it on port 8099 using kubectl commands directly. Below are the steps:
 
 ```bash
 kubectl create deployment nginx --image=nginx:latest
@@ -104,7 +124,7 @@ kubectl create deployment nginx --image=nginx:latest
 This command creates a Deployment named "nginx" with one replica using the Nginx image.
 
 
-#4.Expose Deployment:
+#5.Expose Deployment:
 
 ```bash
 kubectl expose deployment nginx --port=8099 --target-port=80 --type=NodePort
