@@ -107,13 +107,24 @@ sudo usermod -a -G docker $USER
 ```
 Now that Minikube, kubectl and docker is installed, start a Kubernetes cluster using the following command:
 
+```bash
 minikube start --driver=docker
+```
+
+![alt text](images/minikubestart.PNG)
 
 ![alt text](images/start2.PNG)
 
 ![alt text](images/start3.PNG)
 
 ![alt text](images/start4.PNG)
+
+You can check status of minikube services which are running::
+
+```bash
+minikube status
+```
+![alt text](images/minikubestatus.PNG)
 
 #4. **Create Deployment:**
 - You can create a sample deployment for Nginx and expose it on port 8099 using kubectl commands directly. Below are the steps:
